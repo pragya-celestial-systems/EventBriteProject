@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -10,7 +10,9 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import Home from "../pages/Home";
+import { makeStyles } from "@mui/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { addEvent } from "../store/services";
 
 const initialState = {
   title: "",
@@ -22,9 +24,24 @@ const initialState = {
   eventType: "",
 };
 
+const useStyles = makeStyles({
+  formContainer: {
+    width: '60%',
+    margin: "auto",
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  heading: {
+    textAlign:'center'
+  } 
+})
+
 function Form() {
+  const state = useSelector(state => state.events);
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState({ isError: false, message: "" });
+  const styles = useStyles();
+  const dispatch = useDispatch();
 
   function handleChangeValue(e) {
     const { name, value } = e.target;
@@ -57,35 +74,34 @@ function Form() {
     const dateObj = new Date(dateStr);
     const date = dateObj.toISOString().split("T")[0];
     const time = dateObj.toTimeString().split(" ")[0];
-    console.log(date, time);
     return `${date}T${time}Z`;
   }
 
-  function handleCreateEvent(e) {
+  async function handleCreateEvent(e) {
     e.preventDefault();
+  
+    const validation = validateInput();
+    if (validation.error) {
+      setError({ isError: true, message: validation.message });
+      return;
+    }
+  
     try {
-      const validation = validateInput();
-
-      if (validation.error) {
-        setError({ isError: validation.error, message: validation.message });
-        return;
+      // dispatch(addEvent())
+      const response = await saveEvent();
+  
+      if (response.status === "ok") {
+        toast.success("Event created successfully!");
+        setError({ isError: false, message: "" });
+        setFormData(initialState);
+      } else {
+        throw new Error("Unexpected response");
       }
-
-      // // save event in the database
-      const response = saveEvent();
-
-      if (response.status !== "ok") {
-        throw new Error();
-      }
-
-      console.log(response);
-      toast.success("Event created successfully!");
-      setError({ isError: false, message: "" });
-      setFormData(initialState);
     } catch (error) {
+      console.error(error);
       toast.error("Something went wrong");
     }
-  }
+  }  
 
   function handleReset() {
     setFormData(initialState);
@@ -120,7 +136,6 @@ function Form() {
   async function saveEvent() {
     try {
       const formDataJSON = createEventData();
-      console.log(formDataJSON);
       const response = await axios.post(
         `https://www.eventbriteapi.com/v3/organizations/2522570207741/events/`,
         formDataJSON,
@@ -131,18 +146,18 @@ function Form() {
           },
         }
       );
-
+  
       return { status: "ok", response };
     } catch (error) {
+      console.error(error.response.data);
       throw new Error(error.message);
     }
   }
 
   return (
     <>
-      <Home />
-      <h1>Create An Event</h1>
-      <form onSubmit={handleCreateEvent}>
+      <h1 className={styles.heading}>Create An Event</h1>
+      <form onSubmit={handleCreateEvent} className={styles.formContainer}>
         {error.isError && <p style={{ color: "red" }}>{error.message}</p>}
         <InputLabel>Event Title</InputLabel>
         <TextField
@@ -184,6 +199,7 @@ function Form() {
           name="description"
           onChange={handleChangeValue}
           value={formData.description}
+          minRows={5}
         />
         <InputLabel>Event Type</InputLabel>
         <Select
