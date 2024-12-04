@@ -17,7 +17,9 @@ export const addEvent = createAsyncThunk(
       );
 
       if (response.status !== 200) {
-        return thunkAPI.rejectWithValue(response.data.error_description || "Failed to add event");
+        return thunkAPI.rejectWithValue(
+          response.data.error_description || "Failed to add event"
+        );
       }
 
       return response.data;
@@ -30,6 +32,23 @@ export const addEvent = createAsyncThunk(
   }
 );
 
-export const getEvents = createAsyncThunk('events/getEvents', async(_, thunkAPI) => {
-    
-})
+export const getEvents = createAsyncThunk(
+  "events/getEvents",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        "https://www.eventbriteapi.com/v3/organizations/2522570207741/events/",
+        {
+          headers: {
+            Authorization: "Bearer W5HK74QVWJYSUK2OXRTO",
+          },
+        }
+      );
+
+      return response.data.events;
+    } catch (error) {
+        console.log(error);
+        thunkAPI.rejectWithValue(error.message)
+    }
+  }
+);

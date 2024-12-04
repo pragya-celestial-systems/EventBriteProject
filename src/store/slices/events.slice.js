@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addEvent } from "../services";
+import { addEvent, getEvents } from "../services";
 
 const eventsSlice = createSlice({
     name: "eventSlice",
@@ -7,6 +7,9 @@ const eventsSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(addEvent.fulfilled, (state, action) => {
             return [...state, action.payload];
+        })
+        .addCase(getEvents.fulfilled, (state, action) => {
+            return action.payload;
         })
     }
 })
