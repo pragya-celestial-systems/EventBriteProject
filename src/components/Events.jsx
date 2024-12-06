@@ -26,12 +26,15 @@ function Events() {
           <CircularProgress />
         </Box>
       ) : (
-        <Box sx={{margin: 'auto'}}>
+        <Box sx={{margin: 'auto', display:'flex', justifyContent:'center', flexDirection:'column'}}>
           {events &&
-            events.length > 0 &&
+            events.length > 0 ?
             events.map((event, index) => (
               <Event key={index} eventData={event} />
-            ))}
+            ))
+            :
+            <p style={{textAlign:'center', fontSize:'1.3rem', fontWeight: 600, margin:'2rem'}}>No Events Found!</p>
+          }
         </Box>
       )}
     </Box>

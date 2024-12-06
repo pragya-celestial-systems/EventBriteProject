@@ -10,7 +10,7 @@ function Event({ eventData }) {
   }
 
   return (
-    <Box sx={{ width: "70%", display: "flex", alignItems: "center", borderBottom: '1px solid lightgrey' }} onClick={handleDisplayEventDetails}>
+    <Box sx={{ width: "70%", display: "flex", alignItems: "center", borderBottom: '1px solid lightgrey', margin: 'auto' }} onClick={handleDisplayEventDetails}>
       <Box
         sx={{
           height: "125px",

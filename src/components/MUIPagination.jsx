@@ -11,6 +11,12 @@ function MUIPagination() {
 
   return (
     <Pagination
+    sx={{
+      display:'flex',
+      justifyContent:"center",
+      alignItems:'center',
+      margin: '2rem'
+    }}
       count={totalPages}
       page={currentPage}
       onChange={handlePageChange}
