@@ -2,6 +2,8 @@ import * as React from "react";
 import SearchIcon from '@mui/icons-material/Search';;
 import { alpha, styled } from "@mui/material/styles";
 import { InputBase } from "@mui/material";
+import { useSelector } from "react-redux";
+import { useEventContext } from "../context/EventsContext";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -47,6 +49,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Searchbar() {
     const [searchVal, setSearchVal] = React.useState('');
+    const state = useSelector(state => state.events);
+    const {setEvents} = useEventContext();
     
     function handleChangeValue(e) {
         setSearchVal(e.target.value);
@@ -54,7 +58,13 @@ function Searchbar() {
     
     function handleSearch(e) {
         e.preventDefault();
-        console.log(searchVal);
+        const filteredEvents = state.filter(event => {
+          const name = event.name.text.toLowerCase().trim();
+          const search = searchVal.toLowerCase().trim();
+          return name.includes(search)
+        });
+
+        setEvents(filteredEvents);
     }
 
   return (

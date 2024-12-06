@@ -13,12 +13,16 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import Searchbar from "./Searchbar";
+import { useSelector } from "react-redux";
+import { useEventContext } from "../context/EventsContext";
 
 const pages = ["Home", "Create Event"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const navigate = useNavigate();
+  const state = useSelector(state => state.events);
+  const {setEvents} = useEventContext();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,6 +46,11 @@ function ResponsiveAppBar() {
     }
   }
 
+  function handleDisplayHome() {
+    navigate('/');
+    setEvents(state);
+  }
+
   return (
     <AppBar position="static" sx={{boxShadow:'none', borderBottom:'1px solid lightgrey', background:'white'}}>
       <Container maxWidth="xl" sx={{color:'black'}}>
@@ -51,7 +60,6 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -60,7 +68,9 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: 'pointer'
             }}
+            onClick={handleDisplayHome}
           >
             EventBrite
           </Typography>

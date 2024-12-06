@@ -1,47 +1,37 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import Categories from "../components/Categories";
+import React, { useEffect } from "react";
 import Events from "../components/Events";
 import { useDispatch, useSelector } from "react-redux";
 import { getEvents } from "../store/services";
+import { useEventContext } from "../context/EventsContext";
+import MUIPagination from "../components/MUIPagination";
+import { usePaginationContext } from "../context/PaginationContext";
 
 function Home() {
-  const [events, setEvents] = useState([]);
-  const [loading, setIsLoading] = useState(true);
+  const { setEvents, setIsLoading } = useEventContext();
   const dispatch = useDispatch();
-  const state = useSelector(state => state.events);
+  const events = useSelector((state) => state.events);
+  const { currentPage, eventsPerPage, setTotalPages } = usePaginationContext();
 
   useEffect(() => {
-    // fetchEvents();
-    dispatch(getEvents());
-  }, []);
+    setIsLoading(true);
+    dispatch(getEvents()).finally(() => setIsLoading(false));
+  }, [dispatch, setIsLoading]);
 
   useEffect(() => {
-    setEvents(state);
-  }, [state])
-  
-  console.log(state);
-  // async function fetchEvents() {
-  //   axios.get(
-  //       "https://www.eventbriteapi.com/v3/organizations/2522570207741/events/", {
-  //         headers: {
-  //           Authorization: "Bearer W5HK74QVWJYSUK2OXRTO",
-  //         },})
-  //       .then(response => {
-  //         setEvents(response.data.events);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       })
-  //       .finally(() => {
-  //         setIsLoading(false);
-  //       })
-  // }
+    if (events.length) {
+      const totalPages = Math.ceil(events.length / eventsPerPage);
+      setTotalPages(totalPages);
+
+      const startIndex = (currentPage - 1) * eventsPerPage;
+      const endIndex = startIndex + eventsPerPage;
+      setEvents(events.slice(startIndex, endIndex));
+    }
+  }, [events, currentPage, eventsPerPage, setTotalPages, setEvents]);
 
   return (
     <div>
-      <Categories />
-      <Events events={events} isLoading={loading}/>
+      <Events />
+      <MUIPagination />
     </div>
   );
 }
