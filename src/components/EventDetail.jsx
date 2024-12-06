@@ -16,7 +16,6 @@ function EventDetail() {
     const styles = useStyles();
     const [params] = useSearchParams();
     const id = params.get('id');
-    console.log(id);
     const [eventData, setEventData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

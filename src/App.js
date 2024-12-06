@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { EventProvider } from "./context/EventsContext";
 import { PaginationProvider } from "./context/PaginationContext";
+import Test from "./components/Test1";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<Form />} />
               <Route path="/events" element={<EventDetail />} />
+              <Route path="/events/:id" element={<Test />} />
             </Routes>
           </BrowserRouter>
         </PaginationProvider>

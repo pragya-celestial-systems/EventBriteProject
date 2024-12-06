@@ -4,6 +4,7 @@ import { alpha, styled } from "@mui/material/styles";
 import { InputBase } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useEventContext } from "../context/EventsContext";
+import { usePaginationContext } from "../context/PaginationContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,6 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Searchbar() {
+  const {setCurrentPage} = usePaginationContext();
   const [searchVal, setSearchVal] = React.useState("");
   const state = useSelector((state) => state.events);
   const { setEvents } = useEventContext();
@@ -65,6 +67,8 @@ function Searchbar() {
     });
 
     setEvents(filteredEvents);
+    setSearchVal("");
+    setCurrentPage(1)
   };
 
   return (
