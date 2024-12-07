@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { getEvent } from "../store/services";
 
 const useStyles = makeStyles({
   container: {
@@ -61,17 +62,19 @@ function EventDetail() {
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [venue, setVenue] = useState("");
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (id) {
-      fetchData();
+      getEvent(id)
+        .then((data) => {
+          setEventData(data);
+        })
+        .finally(() => setLoading(false));
     }
   }, [id]);
 
   useEffect(() => {
     if (eventData) {
-      console.log("venue id", eventData.venue_id);
       if (!eventData.online_event && eventData.venue_id) {
         let location = venues.find(
           (location) => location.id === eventData.venue_id
@@ -84,32 +87,12 @@ function EventDetail() {
     }
   }, [eventData]);
 
-  async function fetchData() {
-    try {
-      const response = await axios.get(
-        `https://www.eventbriteapi.com/v3/events/${id}/`,
-        {
-          headers: {
-            Authorization: "Bearer W5HK74QVWJYSUK2OXRTO",
-          },
-        }
-      );
-
-      setEventData(response.data);
-    } catch (err) {
-      setError(err.message || "Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   if (loading)
     return (
       <div className={styles.container}>
         <p className={styles.message}>Loading event details...</p>
       </div>
     );
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className={styles.container}>

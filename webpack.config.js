@@ -1,6 +1,6 @@
-
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: "./src/index.js",
@@ -58,9 +58,6 @@ module.exports = {
     ],
   },
   plugins: [
-    // suman changed
-    // this plugin is needed to create index html content as it is used to serve the webpack bundle
-
     new HtmlWebpackPlugin({
       title: 'React App',
       templateContent: `
@@ -77,5 +74,6 @@ module.exports = {
         </html>
       `,
     }),
+    new Dotenv(), 
   ],
 };

@@ -6,11 +6,11 @@ export const addEvent = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const response = await axios.post(
-        `https://www.eventbriteapi.com/v3/organizations/2522570207741/events/`,
+        `${process.env.BASE_URL}/organizations/${process.env.ORG_ID}/events/`,
         formData,
         {
           headers: {
-            Authorization: "Bearer W5HK74QVWJYSUK2OXRTO",
+            Authorization: `Bearer ${process.env.PRIVATE_TOKEN}`,
             "Content-Type": "application/json",
           },
         }
@@ -37,18 +37,32 @@ export const getEvents = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(
-        "https://www.eventbriteapi.com/v3/organizations/2522570207741/events/",
+        `${process.env.BASE_URL}/organizations/${process.env.ORG_ID}/events/`,
         {
           headers: {
-            Authorization: "Bearer W5HK74QVWJYSUK2OXRTO",
+            Authorization: `Bearer ${process.env.PRIVATE_TOKEN}`,
           },
         }
       );
 
       return response.data.events;
     } catch (error) {
-        console.log(error);
-        thunkAPI.rejectWithValue(error.message)
+      console.error(error);
+      thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+export const getEvent = async (id) => {
+  try {
+    const response = await axios.get(`${process.env.BASE_URL}/events/${id}/`, {
+      headers: {
+        Authorization: `Bearer ${process.env.PRIVATE_TOKEN}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
