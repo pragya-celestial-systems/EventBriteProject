@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
@@ -14,8 +14,9 @@ const useStyles = makeStyles({
 
 function EventDetail() {
     const styles = useStyles();
-    const [params] = useSearchParams();
-    const id = params.get('id');
+    // const [params] = useSearchParams();
+    // const id = params.get('id');
+    const {id} = useParams();
     const [eventData, setEventData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

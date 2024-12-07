@@ -5,7 +5,6 @@ import { getEvents } from "../store/services";
 import { useEventContext } from "../context/EventsContext";
 import MUIPagination from "../components/MUIPagination";
 import { usePaginationContext } from "../context/PaginationContext";
-import Test from "../components/Test1";
 
 function Home() {
   const { setEvents, setIsLoading } = useEventContext();
@@ -31,7 +30,6 @@ function Home() {
 
   return (
     <>
-    <Test/>
       <Events />
       <MUIPagination />
     </>

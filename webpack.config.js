@@ -1,42 +1,30 @@
+
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist"),
     filename: "index.bundle.js",
     publicPath: '/'
   },
-  // devServer: {
-  //   port: 3000,
-  //   open: true,
-  //   historyApiFallback: true,
-  //   // hot: true
-  // },
+  
   devServer: {
     static: {
-    directory: path.join(__dirname, 'dist'), // Ensure this points to your build output
-      },
-    compress: true,
-    port: 3000, // Port your app is running on
+      directory: path.join(__dirname, 'dist'),
     },
+    compress: true,
+    port: 3000,
+    historyApiFallback: true,
+    open: true
+  },
   watch: true,
   resolve: {
     extensions: [".js", ".jsx"],
   },
   module: {
     rules: [
-      {
-        test: /\.?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-}
-        }
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -69,5 +57,25 @@ module.exports = {
       },
     ],
   },
-  // plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    // suman changed
+    // this plugin is needed to create index html content as it is used to serve the webpack bundle
+
+    new HtmlWebpackPlugin({
+      title: 'React App',
+      templateContent: `
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>React App</title>
+          </head>
+          <body>
+            <div id="root"></div>
+          </body>
+        </html>
+      `,
+    }),
+  ],
 };

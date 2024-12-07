@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 import React from "react";
-import Event from "./Event";
+import EventCard from "./EventCard";
 import { useEventContext } from "../context/EventsContext";
 
 function Events() {
@@ -30,7 +30,7 @@ function Events() {
           {events &&
             events.length > 0 ?
             events.map((event, index) => (
-              <Event key={index} eventData={event} />
+              <EventCard key={index} eventData={event} />
             ))
             :
             <p style={{textAlign:'center', fontSize:'1.3rem', fontWeight: 600, margin:'2rem'}}>No Events Found!</p>

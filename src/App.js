@@ -22,8 +22,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<Form />} />
-              <Route path="/events" element={<EventDetail />} />
-              <Route path="/events/:id" element={<Test />} />
+              <Route path="/events/:id" element={<EventDetail />} />
             </Routes>
           </BrowserRouter>
         </PaginationProvider>

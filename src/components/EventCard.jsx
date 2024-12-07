@@ -3,10 +3,10 @@ import React from "react";
 import ImageIcon from "@mui/icons-material/Image";
 import { useNavigate } from "react-router-dom";
 
-function Event({ eventData }) {
+function EventCard({ eventData }) {
   const navigate = useNavigate();
   function handleDisplayEventDetails(){
-    navigate(`/events?id=${eventData.id}`);
+    navigate(`/events/${eventData.id}`);
   }
 
   return (
@@ -31,4 +31,4 @@ function Event({ eventData }) {
   );
 }
 
-export default Event;
+export default EventCard;
