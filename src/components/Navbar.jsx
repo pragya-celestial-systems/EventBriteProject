@@ -21,8 +21,8 @@ const pages = ["Home", "Create Event"];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const navigate = useNavigate();
-  const state = useSelector(state => state.events);
-  const {setEvents} = useEventContext();
+  const state = useSelector((state) => state.events);
+  const { setEvents } = useEventContext();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,27 +35,40 @@ function ResponsiveAppBar() {
   const handleOpenPage = (e) => {
     const link = e.target.textContent;
 
-    if(link === "Home"){
-        navigate('/');
-        return;
+    if (link === "Home") {
+      navigate("/");
+      return;
     }
 
-    if(link === "Create Event"){
-        navigate("/new");
-        return;
+    if (link === "Create Event") {
+      navigate("/new");
+      return;
     }
-  }
+  };
 
   function handleDisplayHome() {
-    navigate('/');
+    navigate("/");
     setEvents(state);
   }
 
   return (
-    <AppBar position="static" sx={{boxShadow:'none', borderBottom:'1px solid lightgrey', background:'white'}}>
-      <Container maxWidth="xl" sx={{color:'black'}}>
+    <AppBar
+      position="static"
+      sx={{
+        boxShadow: "none",
+        borderBottom: "1px solid lightgrey",
+        background: "white",
+      }}
+    >
+      <Container maxWidth="xl" sx={{ color: "black" }}>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <AdbIcon
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              color: "cadetblue",
+            }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -68,7 +81,8 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              cursor: 'pointer'
+              cursor: "pointer",
+              color: "cadetblue",
             }}
             onClick={handleDisplayHome}
           >
@@ -133,7 +147,7 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleOpenPage}
-                sx={{ my: 2, display: "block", color:'grey' }}
+                sx={{ my: 2, display: "block", color: "grey" }}
               >
                 {page}
               </Button>
