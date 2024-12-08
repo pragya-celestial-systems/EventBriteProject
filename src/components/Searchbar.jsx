@@ -5,6 +5,7 @@ import { InputBase } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useEventContext } from "../context/EventsContext";
 import { usePaginationContext } from "../context/PaginationContext";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,10 +49,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Searchbar() {
-  const {setCurrentPage} = usePaginationContext();
+  const {setCurrentPage, setTotalPages} = usePaginationContext();
   const [searchVal, setSearchVal] = React.useState("");
   const state = useSelector((state) => state.events);
   const { setEvents } = useEventContext();
+  const navigate = useNavigate();
 
   const handleChangeValue = (e) => {
     setSearchVal(e.target.value);
@@ -69,6 +71,8 @@ function Searchbar() {
     setEvents(filteredEvents);
     setSearchVal("");
     setCurrentPage(1)
+    navigate('/');
+    setTotalPages(Math.ceil(filteredEvents.length / 10));
   };
 
   return (
