@@ -1,0 +1,54 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: ["main"]
+
+  pull_request:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  CI: false
+
+jobs:
+  build_and_deploy:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+
+        uses: actions/checkout@v4
+
+      - name: Setup Node JS
+
+        uses: actions/setup-node@v4
+
+        with:
+          node-version: 20
+
+          cache: "npm"
+
+      - name: Install Dependencies
+
+        run: npm ci
+
+      - name: Build Application
+
+        run: npm run build --if-present
+
+      - name: Deploy to Github Pages
+
+        uses: JamesIves/github-pages-deploy-action@v4
+
+        with:
+          branch: gh-pages
+
+          folder: build
+
+      - name: Display message    
+        run: echo "Deployed successfully!"
