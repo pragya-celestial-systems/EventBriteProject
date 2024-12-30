@@ -15,7 +15,7 @@ export default [
       "eqeqeq": "error",
       "no-var": "error",
       "prefer-const": "warn",
-      "curly": ["error", "all"],    
+      "curly": ["error", "all"],
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",

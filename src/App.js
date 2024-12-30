@@ -10,7 +10,6 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { EventProvider } from "./context/EventsContext";
 import { PaginationProvider } from "./context/PaginationContext";
-import Test from "./components/Test1";
 
 export default function App() {
   return (

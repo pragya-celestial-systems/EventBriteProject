@@ -10,15 +10,18 @@ const categories = [
   },
   {
     title: "Festivals",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu3Re8LDLxBZsmJqC6RvQ9zh2QJgJOX7Sp3w&s"
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu3Re8LDLxBZsmJqC6RvQ9zh2QJgJOX7Sp3w&s",
   },
   {
     title: "Sports",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcSJ-IbCSJAy9q-ZT3sd91dwVxtBZ7m9WAXw&s"
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcSJ-IbCSJAy9q-ZT3sd91dwVxtBZ7m9WAXw&s",
   },
   {
     title: "Politics",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvZ-6M7rjEJlgpudbElLXvAEO_ZkSDiwJiKQ&s"
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvZ-6M7rjEJlgpudbElLXvAEO_ZkSDiwJiKQ&s",
   },
 ];
 
@@ -26,8 +29,8 @@ const useStyles = makeStyles({
   container: {
     display: "flex",
     alignItems: "center",
-    width: '80%',
-    margin: '2rem auto'
+    width: "80%",
+    margin: "2rem auto",
   },
 });
 

@@ -37,6 +37,9 @@ jobs:
 
         run: npm ci
 
+      - name: run eslint
+        run: npm run lint  
+
       - name: Build Application
 
         run: npm run build --if-present

@@ -87,13 +87,13 @@ function EventDetail() {
     }
   }, [eventData]);
 
-  if (loading)
+  if (loading) {
     return (
       <div className={styles.container}>
         <p className={styles.message}>Loading event details...</p>
       </div>
     );
-
+  }
   return (
     <div className={styles.container}>
       <h1>Event Details</h1>

@@ -89,7 +89,7 @@ function Form() {
       const formDataJSON = createEventData();
       const response = dispatch(addEvent(formDataJSON));
       response.then((res) => {
-        if (res.error && res.error.message == "Rejected") {
+        if (res.error && res.error.message === "Rejected") {
           toast.error(res.payload);
           return;
         } else {

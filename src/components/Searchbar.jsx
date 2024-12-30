@@ -70,8 +70,8 @@ function Searchbar() {
 
     setEvents(filteredEvents);
     setSearchVal("");
-    setCurrentPage(1)
-    navigate('/');
+    setCurrentPage(1);
+    navigate("/");
     setTotalPages(Math.ceil(filteredEvents.length / 10));
   };
 
