@@ -1,14 +1,20 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const WebpackBundleAnalyzer = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+
+let devMode = process.env.devMode || true;
 
 module.exports = {
   entry: "./src/index.js",
+  mode: devMode ? "development" : "production",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.bundle.js",
-    publicPath: "/"},
+    publicPath: "/",
+    chunkFilename: "[name].js"
+  },
   devServer: {
     static: {
       directory: path.join(__dirname, "dist"),
@@ -17,6 +23,13 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
     open: true
+  },
+  devtool: false,
+  optimization: {
+    splitChunks: {
+      minSize: 10000,
+      maxSize: 240000,
+    }
   },
   watch: true,
   resolve: {
@@ -74,6 +87,6 @@ module.exports = {
       `,
     }),
     new Dotenv(),
-    new BundleAnalyzerPlugin(),
+    new WebpackBundleAnalyzer(),
   ],
 };
