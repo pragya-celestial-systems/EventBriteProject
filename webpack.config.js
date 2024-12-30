@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
   entry: "./src/index.js",
@@ -73,5 +74,6 @@ module.exports = {
       `,
     }),
     new Dotenv(),
+    new BundleAnalyzerPlugin(),
   ],
 };
