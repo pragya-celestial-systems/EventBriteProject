@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Box } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import Box from "@mui/material/Box";
+import makeStyles from "@mui/styles/makeStyles";
 import { getEvent } from "../store/services";
 
 const useStyles = makeStyles({

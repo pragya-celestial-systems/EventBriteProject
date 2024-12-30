@@ -1,6 +1,6 @@
 import React from "react";
 import Category from "./Category";
-import { makeStyles } from "@mui/styles";
+import  makeStyles from "@mui/styles/makeStyles";
 
 const categories = [
   {

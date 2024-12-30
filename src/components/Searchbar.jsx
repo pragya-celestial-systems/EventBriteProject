@@ -1,7 +1,7 @@
 import * as React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { alpha, styled } from "@mui/material/styles";
-import { InputBase } from "@mui/material";
+import InputBase from "@mui/material/InputBase";
 import { useSelector } from "react-redux";
 import { useEventContext } from "../context/EventsContext";
 import { usePaginationContext } from "../context/PaginationContext";

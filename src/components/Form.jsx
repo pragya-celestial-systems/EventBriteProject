@@ -8,9 +8,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { ToastContainer, toast } from "react-toastify";
+import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { makeStyles } from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
 import { useDispatch } from "react-redux";
 import { addEvent } from "../store/services";
 

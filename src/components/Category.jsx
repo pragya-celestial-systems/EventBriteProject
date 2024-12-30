@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import Box from "@mui/material/Box";
+import makeStyles from "@mui/styles/makeStyles";
 import React from "react";
 
 const useStyles = makeStyles({
